@@ -1,4 +1,3 @@
 var allocate = "Hello Budget";
-console.log(allocate);
 
-This will be the README for the Allocate expense tracing app!
+This will be the README for the Allocate expense tracking app!
