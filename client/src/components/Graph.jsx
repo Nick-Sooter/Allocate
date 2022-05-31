@@ -10,8 +10,11 @@ const config = {
     datasets: [{
       data: [300, 50, 100],
       backgroundColor: [
+        // red
         'rgb(255, 99, 132)',
+        // blue
         'rgb(54, 162, 235)',
+        // yellow
         'rgb(255, 205, 86)'
       ],
       hoverOffset: 4,
@@ -29,6 +32,7 @@ function Graph() {
     <div className="flex justify-content max-w-xs mx-auto">
       <div className="item">
         <div className="chart relative">
+          {/* chart */}
           <Doughnut {...config} />
           <h3 className="mb-4 font-bold title">Total
             <span className="block text-3xl text-emerald-400 ">${0}</span>
