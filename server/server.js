@@ -9,10 +9,24 @@ const port = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 
+// mongoDB connection
+const dbConnect = require('./database/connect.js')
+
 // using routes
 app.use(require('./routes/route.js'));
 
-app.listen(port, () => {
-  console.log(`Nodemon is happy on port: ${port}`)
+dbConnect.then(db => {
+  if (!db) return process.exit(1);
+
+  // listen to the http server
+  app.listen(port, () => {
+    console.log(`Nodemon is listening on port: ${port}`)
+  })
+  app.on('error', err => console.log(`Failed to connect to server: ${err}`))
+  // error in mongodb connection
+}).catch(error => {
+  console.log(`DB Connection Failed ${error}`);
 })
+
+
 
