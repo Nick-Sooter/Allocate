@@ -61,10 +61,42 @@ async function deleteTransaction(req, res) {
   }).clone().catch(function (err) { res.json('Error while deleting transaction') })
 }
 
+// GET '/api/labels'
+// mongoose aggregate function to join routes for categories and transactions
+// color properties from categories, data from transaction
+async function getLabels(req, res) {
+
+  model.Transaction.aggregate([
+    {
+      $lookup: {
+        // collection to join
+        from: "categories",
+        // field from input documents
+        localField: "type",
+        // field from the documents of the "from" collection
+        foreignField: "type",
+        // name for output array field
+        as: "categoriesInfo"
+      }
+    },
+    {
+      // Deconstructs an array field from the input documents to output a document for each element.
+      $unwind: "$categoriesInfo"
+    }
+  ]).then(result => {
+    // only need id, name, type, amount, and color for front end
+    let data = result.map(val => Object.assign({}, { _id: val._id, name: val.name, type: val.type, amount: val.amount, color: val.categoriesInfo.color }));
+    res.json(data);
+  }).catch(error => {
+    res.status(400).json("Lookup Collection Error");
+  })
+}
+
 module.exports = {
   createCategories,
   getCategories,
   createTransaction,
   getTransaction,
-  deleteTransaction
+  deleteTransaction,
+  getLabels
 }
