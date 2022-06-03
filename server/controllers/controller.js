@@ -40,7 +40,7 @@ async function createTransaction(req, res) {
 
   create.save(function (err) {
     if (!err) return res.json(create);
-    return res.status(400).json({ message: `Error while creating transactio ${err}` });
+    return res.status(400).json({ message: `Error while creating transaction ${err}` });
   })
 }
 
@@ -50,9 +50,21 @@ async function getTransaction(req, res) {
   return res.json(data);
 }
 
+// DELETE '/api/transaction'
+
+async function deleteTransaction(req, res) {
+  // use id paramater to delete
+  if (!req.body) return res.status(400).json({ message: 'Request body not found' });
+
+  await model.Transaction.deleteOne(req.body, function (err) {
+    if (!err) return res.json('Transaction Deleted');
+  }).clone().catch(function (err) { res.json('Error while deleting transaction') })
+}
+
 module.exports = {
   createCategories,
   getCategories,
   createTransaction,
-  getTransaction
+  getTransaction,
+  deleteTransaction
 }
