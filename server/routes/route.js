@@ -2,6 +2,11 @@ const routes = require('express').Router();
 const controller = require('../controllers/controller.js')
 
 routes.route('/api/categories')
-  .get(controller.createCategories);
+  .post(controller.createCategories)
+  .get(controller.getCategories)
+
+routes.route('/api/transaction')
+  .post(controller.createTransaction)
+  .get(controller.getTransaction)
 
 module.exports = routes;
