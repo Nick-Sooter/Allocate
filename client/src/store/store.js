@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import expenseSlice from './reducer';
+import expenseSlice from './reducer.js';
 import { apiSlice } from './apiSlice.js';
 
 

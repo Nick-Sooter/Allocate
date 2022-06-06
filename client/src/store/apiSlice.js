@@ -10,12 +10,14 @@ export const apiSlice = createApi({
     // GET categories
     getCategories: builder.query({
       // callback function to return endpoint for all categories of categories document
-      query: () => './api/categories'
+      query: () => '/api/categories',
+      providesTags: ['categories']
     }),
 
     //GET labels
     getLabels: builder.query({
-      query: () => '/api/labels'
+      query: () => '/api/labels',
+      providesTags: ['transaction']
     }),
 
     // POST new transaction
@@ -25,7 +27,8 @@ export const apiSlice = createApi({
         url: '/api/transaction',
         method: "POST",
         body: initialTransaction
-      })
+      }),
+      invalidatesTags: ['transaction']
     }),
 
     // DELETE transaction
@@ -34,7 +37,8 @@ export const apiSlice = createApi({
         url: '/api/transaction',
         method: "DELETE",
         body: recordId
-      })
+      }),
+      invalidatesTags: ['transaction']
     })
   })
 })
