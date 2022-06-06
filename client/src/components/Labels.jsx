@@ -1,27 +1,23 @@
 import React from 'react';
-
-const categories = [
-  {
-    type: 'Savings',
-    color: 'rgb(255, 205, 86)',
-    percent: 25
-  },
-  {
-    type: 'Investment',
-    color: 'rgb(54, 162, 235)',
-    percent: 10
-  },
-  {
-    type: 'Expense',
-    color: 'rgb(255, 99, 132)',
-    percent: 65
-  }
-]
+import { default as api } from '../store/apiSlice.js';
 
 function Labels() {
+  //console.log(api.useGetCategoriesQuery())
+  const { data, isFetching, isSuccess, isError } = api.useGetLabelsQuery();
+  // console.log(data); console.log(isFetching), etc
+  let Transactions;
+
+  if (isFetching) {
+    Transactions = <div>Fetching</div>
+  } else if (isSuccess) {
+    Transactions = data.map((val, i) => <LabelComponent key={i} data={val} />)
+  } else if (isError) {
+    Transactions = <div>Error</div>
+  }
+
   return (
     <>
-      {categories.map((val, i) => <LabelComponent key={i} data={val} />)}
+      {Transactions}
 
     </>
   )
