@@ -1,5 +1,6 @@
 import React from 'react';
 import { default as api } from '../store/apiSlice.js';
+import { getLabels } from '../helpers/helper.js';
 
 function Labels() {
   //console.log(api.useGetCategoriesQuery())
@@ -10,7 +11,8 @@ function Labels() {
   if (isFetching) {
     Transactions = <div>Fetching</div>
   } else if (isSuccess) {
-    Transactions = data.map((val, i) => <LabelComponent key={i} data={val} />)
+    console.log(getLabels(data, 'type'));
+    Transactions = getLabels(data, 'type').map((val, i) => <LabelComponent key={i} data={val} />)
   } else if (isError) {
     Transactions = <div>Error</div>
   }
@@ -30,7 +32,7 @@ function LabelComponent({ data }) {
         <div className="w-2 h-2 rounded py-3" style={{ background: data.color ?? "rgb(255, 205, 86)" }}></div>
         <h3 className="text-md">{data.type ?? ""}</h3>
       </div>
-      <h3 className="font-bold">{data.percent ?? 0}%</h3>
+      <h3 className="font-bold">{Math.round(data.percent) ?? 0}%</h3>
     </div >
   )
 }
