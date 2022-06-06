@@ -1,15 +1,16 @@
 import React from 'react';
-// import DeleteIcon from '@mui/icons-material/Delete';
 import 'boxicons';
 import { default as api } from '../store/apiSlice.js';
 
 function List() {
   const { data, isFetching, isSuccess, isError } = api.useGetLabelsQuery();
-
+  const [deleteTransaction] = api.useDeleteTransactionMutation();
   let Transactions;
 
   const handleClick = (e) => {
-    console.log(e.target.dataset.id)
+    //console.log(e.target.dataset.id)
+    if (!e.target.dataset.id) return 0;
+    deleteTransaction({ _id: e.target.dataset.id })
   }
 
   if (isFetching) {
