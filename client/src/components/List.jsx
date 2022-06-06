@@ -1,5 +1,6 @@
 import React from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
+// import DeleteIcon from '@mui/icons-material/Delete';
+import 'boxicons';
 import { default as api } from '../store/apiSlice.js';
 
 function List() {
@@ -7,13 +8,18 @@ function List() {
 
   let Transactions;
 
+  const handleClick = (e) => {
+    console.log(e.target.dataset.id)
+  }
+
   if (isFetching) {
     Transactions = <div>Fetching</div>
   } else if (isSuccess) {
-    Transactions = data.map((val, i) => <Transaction key={i} category={val} />)
+    Transactions = data.map((val, i) => <Transaction key={i} category={val} handle={handleClick} />)
   } else if (isError) {
     Transactions = <div>Error</div>
   }
+
   return (
     <div className="flex flex-col py-6 gap-3">
       <h1 className="py-4 font-bold text-xl">History</h1>
@@ -22,14 +28,27 @@ function List() {
   )
 }
 
-function Transaction({ category }) {
+function Transaction({ category, handle }) {
   if (!category) return null;
   return (
-    <div className="item flex justify-center bg-gray-50 py-2 rounded-r" style={{ borderRight: `8px solid ${category.color ?? "rgb(229, 229, 229)"}` }}>
-      <button className="px-3"><DeleteIcon fontSize="xs" /></button>
+    <div className="item flex justify-left bg-gray-50 py-2 rounded-r" style={{ borderRight: `8px solid ${category.color ?? "rgb(229, 229, 229)"}` }}>
+      <button className="px-3" onClick={handle}><box-icon data-id={category._id ?? ""} color={category.color ?? "rgb(229, 229, 229)"} size="sm" pull="left" name="trash"></box-icon></button>
       <span className="block-w-full">{category.name ?? ""}</span>
     </div>
   )
 }
 
 export default List;
+
+
+/*
+function Transaction({ category, handle }) {
+  if (!category) return null;
+  return (
+    <div className="item flex justify-center bg-gray-50 py-2 rounded-r" style={{ borderRight: `8px solid ${category.color ?? "rgb(229, 229, 229)"}` }}>
+      <button className="px-3" onClick={handle} dataid={category._id ?? ""}><DeleteIcon fontSize="xs" /></button>
+      <span className="block-w-full">{category.name ?? ""}</span>
+    </div>
+  )
+}
+*/

@@ -30,7 +30,7 @@ function LabelComponent({ data }) {
         <div className="w-2 h-2 rounded py-3" style={{ background: data.color ?? "rgb(255, 205, 86)" }}></div>
         <h3 className="text-md">{data.type ?? ""}</h3>
       </div>
-      <h3 className="font-bold">{Math.round(data.percent) ?? 0}%</h3>
+      <h3 className="font-bold">{data.percent ?? 0}%</h3>
     </div >
   )
 }
