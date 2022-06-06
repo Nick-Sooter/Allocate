@@ -14,12 +14,12 @@ const transactionModel = new Schema({
   date: { type: Date, default: Date.now }
 })
 
-const Category = mongoose.model('categories', categoriesModel);
+const Categories = mongoose.model('categories', categoriesModel);
 const Transaction = mongoose.model('transaction', transactionModel);
 
 exports.default = Transaction;
 module.exports = {
-  Category,
+  Categories,
   Transaction
 }
 

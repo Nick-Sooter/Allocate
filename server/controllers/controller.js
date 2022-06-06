@@ -3,7 +3,7 @@ const model = require('../models/model.js');
 // POST '/api/categories'
 async function createCategories(req, res) {
   // res.json('GET data from Categories');
-  const Create = new model.Category({
+  const Create = new model.Categories({
     type: 'Investment',
     color: 'rgb(252, 190, 68)',
   })
@@ -16,9 +16,10 @@ async function createCategories(req, res) {
 
 // GET '/api/categories'
 async function getCategories(req, res) {
-  let data = await model.Category.find({})
+  let data = await model.Categories.find({})
 
-  return res.json(data);
+  let filter = await data.map(val => Object.assign({}, { type: val.type, color: val.color }));
+  return res.json(filter);
 }
 
 // POST '/api/transaction
@@ -51,7 +52,6 @@ async function getTransaction(req, res) {
 }
 
 // DELETE '/api/transaction'
-
 async function deleteTransaction(req, res) {
   // use id paramater to delete
   if (!req.body) return res.status(400).json({ message: 'Request body not found' });
@@ -85,10 +85,10 @@ async function getLabels(req, res) {
     }
   ]).then(result => {
     // only need id, name, type, amount, and color for front end
-    let data = result.map(val => Object.assign({}, { _id: val._id, name: val.name, type: val.type, amount: val.amount, color: val.categoriesInfo.color }));
+    let data = result.map(val => Object.assign({}, { _id: val._id, name: val.name, type: val.type, amount: val.amount, color: val.categoriesInfo['color'] }));
     res.json(data);
   }).catch(error => {
-    res.status(400).json("Lookup Collection Error");
+    res.status(400).json("Lookup Error");
   })
 }
 
