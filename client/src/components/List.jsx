@@ -40,16 +40,3 @@ function Transaction({ category, handle }) {
 }
 
 export default List;
-
-
-/*
-function Transaction({ category, handle }) {
-  if (!category) return null;
-  return (
-    <div className="item flex justify-center bg-gray-50 py-2 rounded-r" style={{ borderRight: `8px solid ${category.color ?? "rgb(229, 229, 229)"}` }}>
-      <button className="px-3" onClick={handle} dataid={category._id ?? ""}><DeleteIcon fontSize="xs" /></button>
-      <span className="block-w-full">{category.name ?? ""}</span>
-    </div>
-  )
-}
-*/
