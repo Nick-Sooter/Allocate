@@ -10,4 +10,4 @@ After clicking the Make Transaction button,  the transaction will be stored in a
 
 Tech Stack: Javascript, React, Redux, RTK Query, Node.js, Express, MongoDB, Tailwind CSS
 
-To start the application, please open two separate terminals and run "npm start" concurrently in both the client and server directories.
+To start the application, please clone the repository and then run "npm start" concurrently in both the client and server directories.
